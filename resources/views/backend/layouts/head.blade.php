@@ -19,7 +19,7 @@
 
 <link rel="stylesheet" href="{{asset('backend/assets/vendors/simple-datatables/style.css')}}">
 
-
+//************************************
 
 
 <?php

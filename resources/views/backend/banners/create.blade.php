@@ -89,21 +89,32 @@
                                             <div class="form-group col-12">
 
                                             </div>
-                                            <div class="col-12 d-flex justify-content-end">
-                                                <form action="{{route('banner.store')}}" method="post"></form>
-                                                @csrf
-                                                <div class="row clearfix">
-                                                    <div class="col-lg-12 col-md-12">
-                                                        <div class="form-group">
-                                                            <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
-                                                            <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
-                                                        </div>
-
+                                            <div class="col-sm-12">
+                                                @if($errors->any)
+                                                    <div class="alert alert-danger">
+                                                        <ul>
+                                                            @foreach($errors->all() as $error)
+                                                                <li>{{$error}}</li>
+                                                            @endforeach
+                                                        </ul>
                                                     </div>
-                                                </div>
+                                                @endif
 
 
+                                            </div>
+                                            <div class="col-12 d-flex justify-content-end">
+                                                <form action="{{route('banner.store')}}" method="post">
+                                                    @csrf
+                                                    <div class="row clearfix">
+                                                        <div class="col-lg-12 col-md-12">
+                                                            <div class="form-group">
+                                                                <button type="submit" class="btn btn-primary me-1 mb-1">Submit</button>
+                                                                <button type="reset" class="btn btn-light-secondary me-1 mb-1">Reset</button>
+                                                            </div>
 
+                                                        </div>
+                                                    </div>
+                                                </form>
                                             </div>
                                         </div>
                                         <!-- Custom file input start -->

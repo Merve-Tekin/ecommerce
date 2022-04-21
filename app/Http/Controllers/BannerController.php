@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Banner;
 use Illuminate\Http\Request;
+use Psy\Util\Str;
 
 class BannerController extends Controller
 {
@@ -13,7 +15,8 @@ class BannerController extends Controller
      */
     public function index()
     {
-        return view('backend.banners.index');
+        $banners=Banner::orderBy('id','DESC')->get();
+        return view('backend.banners.index',compact('banners'));
     }
 
     /**
@@ -34,7 +37,7 @@ class BannerController extends Controller
      */
     public function store(Request $request)
     {
-        return $request->all();
+
         $this->validate($request,[
             'title'=>'string|required',
             'description'=>'string|nullable',
@@ -43,7 +46,15 @@ class BannerController extends Controller
             'status'=>'nullable|in:active,inactive'
         ]);
         $data=$request->all();
+        $slug=Str::slug($request->input('title'));
+        $slug_count=Banner::where('slug',$slug)->count();
+        if ($slug_count>0){
+            $slug = time().'-'.$slug;
+        }
+        $data['slug']=$slug;
+        //return $data;
         $status=Banner::create($data);
+
         if($status){
             return redirect()->route('banner.index')->with('success','Successfully created banner');
 
